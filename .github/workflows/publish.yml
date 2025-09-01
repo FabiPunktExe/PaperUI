@@ -1,0 +1,43 @@
+name: Publish
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+      - name: Build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build --stacktrace
+      - name: Publish to GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIRUPTIO_REPO_USERNAME: ${{ secrets.DIRUPTIO_REPO_USERNAME }}
+          DIRUPTIO_REPO_PASSWORD: ${{ secrets.DIRUPTIO_REPO_PASSWORD }}
+        run: |
+          rm build/libs/*-unobf.jar
+          for file in build/libs/*
+          do gh release upload ${{ github.ref_name }} $file
+          done
+          ./gradlew publish
+      - name: Publish to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: ./gradlew modrinth
+      - name: Publish to Hangar
+        env:
+          HANGAR_TOKEN: ${{ secrets.HANGAR_TOKEN }}
+        run: ./gradlew publishAllPublicationsToHangar

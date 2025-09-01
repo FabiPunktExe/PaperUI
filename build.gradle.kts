@@ -3,6 +3,8 @@ plugins {
     kotlin("jvm") version "2.2.10"
     id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
     id("maven-publish")
+    id("com.modrinth.minotaur") version "2.8.8"
+    id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
@@ -63,6 +65,36 @@ publishing {
         create<MavenPublication>("maven") {
             artifactId = "PaperUI"
             from(components["java"])
+        }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "JdoLDo8L"
+    versionName = version as String
+    versionNumber = version as String
+    versionType = if (version.toString().contains("alpha")) "alpha"
+    else if (version.toString().contains("beta")) "beta"
+    else "release"
+    uploadFile = tasks.reobfJar.get().outputJar.get()
+    gameVersions = listOf("1.21.8")
+    loaders = listOf("paper", "purpur")
+}
+
+hangarPublish {
+    publications.register("plugin") {
+        version = project.version as String
+        id = "PaperUI"
+        channel = "Release"
+
+        apiKey = System.getenv("HANGAR_TOKEN")
+
+        platforms {
+            paper {
+                jar = tasks.reobfJar.get().outputJar
+                platformVersions = listOf("1.21.8")
+            }
         }
     }
 }
