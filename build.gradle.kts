@@ -3,7 +3,7 @@ plugins {
     kotlin("jvm") version "2.2.10"
     id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
     id("maven-publish")
-    id("com.modrinth.minotaur") version "2.8.8"
+    id("com.modrinth.minotaur") version "2.8.10"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
