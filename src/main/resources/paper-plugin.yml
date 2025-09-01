@@ -1,0 +1,6 @@
+name: PaperUI
+main: de.fabiexe.paperui.PaperUIPlugin
+version: "${version}"
+api-version: "1.21"
+authors:
+  - Fabi.exe
