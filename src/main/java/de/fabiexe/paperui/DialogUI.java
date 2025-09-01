@@ -18,6 +18,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class DialogUI<T extends Audience> {
     protected final T audience;
@@ -104,6 +105,38 @@ public class DialogUI<T extends Audience> {
 
     public Property<Boolean> booleanProperty(@NotNull String label, boolean value) {
         return booleanProperty(miniMessage(label), value);
+    }
+
+    public Property<Component> componentProperty(@NotNull Component label, int maxLines) {
+        return property(new ComponentProperty(propertyKey(), label, 1, null));
+    }
+
+    public Property<Component> componentProperty(@NotNull String label, int maxLines) {
+        return componentProperty(miniMessage(label), maxLines);
+    }
+
+    public Property<Component> componentProperty(@NotNull Component label) {
+        return componentProperty(label, 1);
+    }
+
+    public Property<Component> componentProperty(@NotNull String label) {
+        return componentProperty(miniMessage(label));
+    }
+
+    public Property<Component> componentProperty(@NotNull Component label, int maxLines, @Nullable Component value) {
+        return property(new ComponentProperty(propertyKey(), label, maxLines, value));
+    }
+
+    public Property<Component> componentProperty(@NotNull String label, int maxLines, @Nullable Component value) {
+        return componentProperty(miniMessage(label), maxLines, value);
+    }
+
+    public Property<Component> componentProperty(@NotNull Component label, @Nullable Component value) {
+        return property(new ComponentProperty(propertyKey(), label, 1, value));
+    }
+
+    public Property<Component> componentProperty(@NotNull String label, @Nullable Component value) {
+        return componentProperty(miniMessage(label), value);
     }
 
     public Property<Double> doubleProperty(@NotNull Component label, double min, double max) {
@@ -231,19 +264,19 @@ public class DialogUI<T extends Audience> {
         return stringProperty(miniMessage(label));
     }
 
-    public Property<String> stringProperty(@NotNull Component label, int maxLines, String value) {
+    public Property<String> stringProperty(@NotNull Component label, int maxLines, @Nullable String value) {
         return property(new StringProperty(propertyKey(), label, maxLines, value));
     }
 
-    public Property<String> stringProperty(@NotNull String label, int maxLines, String value) {
+    public Property<String> stringProperty(@NotNull String label, int maxLines, @Nullable String value) {
         return stringProperty(miniMessage(label), maxLines, value);
     }
 
-    public Property<String> stringProperty(@NotNull Component label, String value) {
+    public Property<String> stringProperty(@NotNull Component label, @Nullable String value) {
         return property(new StringProperty(propertyKey(), label, 1, value));
     }
 
-    public Property<String> stringProperty(@NotNull String label, String value) {
+    public Property<String> stringProperty(@NotNull String label, @Nullable String value) {
         return stringProperty(miniMessage(label), value);
     }
 

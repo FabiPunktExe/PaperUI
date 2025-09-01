@@ -5,16 +5,17 @@ import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.input.TextDialogInput;
 import java.util.List;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StringProperty implements Property<String> {
+public class ComponentProperty implements Property<Component> {
     private final String key;
     private final Component label;
     private final int maxLines;
-    private String value;
+    private Component value;
 
-    public StringProperty(@NotNull String key, @NotNull Component label, int maxLines, @Nullable String value) {
+    public ComponentProperty(@NotNull String key, @NotNull Component label, int maxLines, @Nullable Component value) {
         this.key = key;
         this.label = label;
         this.maxLines = maxLines;
@@ -22,7 +23,7 @@ public class StringProperty implements Property<String> {
     }
 
     @Override
-    public @NotNull String get() {
+    public @NotNull Component get() {
         if (value == null) {
             throw new IllegalStateException("There is no value present");
         }
@@ -31,7 +32,7 @@ public class StringProperty implements Property<String> {
 
     @Override
     public void read(@NotNull DialogResponseView response) {
-        value = response.getText(key);
+        value = MiniMessage.miniMessage().deserialize(response.getText(key));
     }
 
     @Override
@@ -41,7 +42,7 @@ public class StringProperty implements Property<String> {
             builder.multiline(TextDialogInput.MultilineOptions.create(maxLines, null));
         }
         if (value != null) {
-            builder.initial(value);
+            builder.initial(MiniMessage.miniMessage().serialize(value));
         }
         inputs.add(builder.build());
     }
