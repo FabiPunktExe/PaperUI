@@ -5,6 +5,7 @@ import io.papermc.paper.dialog.Dialog;
 import io.papermc.paper.registry.data.dialog.ActionButton;
 import io.papermc.paper.registry.data.dialog.DialogBase;
 import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
 import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
 import java.lang.reflect.InvocationTargetException;
@@ -17,12 +18,14 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DialogUI<T extends Audience> {
     protected final T audience;
     private Component title = Component.empty();
+    private final List<DialogBody> body = new ArrayList<>();
     private final List<Property<?>> properties = new ArrayList<>();
     private final List<Button> buttons = new ArrayList<>();
     private final List<Button> actionButtons = new ArrayList<>();
@@ -53,6 +56,7 @@ public class DialogUI<T extends Audience> {
         audience.showDialog(Dialog.create(builder -> builder.empty()
                 .base(DialogBase.builder(title)
                         .inputs(inputs)
+                        .body(body)
                         .build())
                 .type(type)));
     }
@@ -80,6 +84,56 @@ public class DialogUI<T extends Audience> {
 
     public void title(@NotNull String title) {
         this.title = miniMessage(title);
+    }
+
+    public void text(@NotNull Component component) {
+        body.add(DialogBody.plainMessage(component));
+    }
+
+    public void text(@NotNull Component component, int maxWidth) {
+        body.add(DialogBody.plainMessage(component, maxWidth));
+    }
+
+    public void item(@NotNull ItemStack itemStack, boolean decorations, boolean tooltip) {
+        body.add(DialogBody.item(itemStack)
+                .showDecorations(decorations)
+                .showTooltip(tooltip)
+                .build());
+    }
+
+    public void item(@NotNull ItemStack itemStack) {
+        item(itemStack, true, false);
+    }
+
+    public void item(@NotNull ItemStack itemStack,
+                     boolean decorations,
+                     boolean tooltip,
+                     @NotNull Component description) {
+        body.add(DialogBody.item(itemStack)
+                .showDecorations(decorations)
+                .showTooltip(tooltip)
+                .description(DialogBody.plainMessage(description))
+                .build());
+    }
+
+    public void item(@NotNull ItemStack itemStack, @NotNull Component description) {
+        item(itemStack, true, false, description);
+    }
+
+    public void item(@NotNull ItemStack itemStack,
+                     boolean decorations,
+                     boolean tooltip,
+                     @NotNull Component description,
+                     int maxDescriptionWidth) {
+        body.add(DialogBody.item(itemStack)
+                .showDecorations(decorations)
+                .showTooltip(tooltip)
+                .description(DialogBody.plainMessage(description, maxDescriptionWidth))
+                .build());
+    }
+
+    public void item(@NotNull ItemStack itemStack, @NotNull Component description, int maxDescriptionWidth) {
+        item(itemStack, true, false, description, maxDescriptionWidth);
     }
 
     public <P> Property<P> property(@NotNull Property<P> property) {
