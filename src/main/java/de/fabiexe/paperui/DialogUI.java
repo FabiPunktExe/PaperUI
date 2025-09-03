@@ -86,12 +86,20 @@ public class DialogUI<T extends Audience> {
         this.title = miniMessage(title);
     }
 
-    public void text(@NotNull Component component) {
-        body.add(DialogBody.plainMessage(component));
+    public void text(@NotNull Component text) {
+        body.add(DialogBody.plainMessage(text));
     }
 
-    public void text(@NotNull Component component, int maxWidth) {
-        body.add(DialogBody.plainMessage(component, maxWidth));
+    public void text(@NotNull String text) {
+        text(miniMessage(text));
+    }
+
+    public void text(@NotNull Component text, int maxWidth) {
+        body.add(DialogBody.plainMessage(text, maxWidth));
+    }
+
+    public void text(@NotNull String text, int maxWidth) {
+        text(miniMessage(text), maxWidth);
     }
 
     public void item(@NotNull ItemStack itemStack, boolean decorations, boolean tooltip) {
@@ -116,8 +124,19 @@ public class DialogUI<T extends Audience> {
                 .build());
     }
 
+    public void item(@NotNull ItemStack itemStack,
+                     boolean decorations,
+                     boolean tooltip,
+                     @NotNull String description) {
+        item(itemStack, decorations, tooltip, miniMessage(description));
+    }
+
     public void item(@NotNull ItemStack itemStack, @NotNull Component description) {
         item(itemStack, true, false, description);
+    }
+
+    public void item(@NotNull ItemStack itemStack, @NotNull String description) {
+        item(itemStack, miniMessage(description));
     }
 
     public void item(@NotNull ItemStack itemStack,
@@ -132,8 +151,20 @@ public class DialogUI<T extends Audience> {
                 .build());
     }
 
+    public void item(@NotNull ItemStack itemStack,
+                     boolean decorations,
+                     boolean tooltip,
+                     @NotNull String description,
+                     int maxDescriptionWidth) {
+        item(itemStack, decorations, tooltip, miniMessage(description), maxDescriptionWidth);
+    }
+
     public void item(@NotNull ItemStack itemStack, @NotNull Component description, int maxDescriptionWidth) {
         item(itemStack, true, false, description, maxDescriptionWidth);
+    }
+
+    public void item(@NotNull ItemStack itemStack, @NotNull String description, int maxDescriptionWidth) {
+        item(itemStack, miniMessage(description), maxDescriptionWidth);
     }
 
     public <P> Property<P> property(@NotNull Property<P> property) {
