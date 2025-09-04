@@ -63,6 +63,9 @@ public class DialogUI<T extends Audience> {
 
     private ActionButton createButton(Button button) {
         ActionButton.Builder builder = ActionButton.builder(button.label());
+        if (button.tooltip() != null) {
+            builder.tooltip(button.tooltip());
+        }
         if (button.action() != null) {
             builder.action(DialogAction.customClick((response, ignored) -> {
                 for (Property<?> property : properties) {
@@ -373,19 +376,35 @@ public class DialogUI<T extends Audience> {
     }
 
     public void button(@NotNull Component label) {
-        buttons.add(new Button(buttonKey(), label, null));
+        buttons.add(new Button(buttonKey(), label, null, null));
     }
 
     public void button(@NotNull String label) {
         button(miniMessage(label));
     }
 
+    public void button(@NotNull Component label, @NotNull Component tooltip) {
+        buttons.add(new Button(buttonKey(), label, tooltip, null));
+    }
+
+    public void button(@NotNull String label, @NotNull String tooltip) {
+        button(miniMessage(label), miniMessage(tooltip));
+    }
+
     public void button(@NotNull Component label, @NotNull Runnable action) {
-        buttons.add(new Button(buttonKey(), label, action));
+        buttons.add(new Button(buttonKey(), label, null, action));
     }
 
     public void button(@NotNull String label, @NotNull Runnable action) {
         button(miniMessage(label), action);
+    }
+
+    public void button(@NotNull Component label, @NotNull Component tooltip, @NotNull Runnable action) {
+        buttons.add(new Button(buttonKey(), label, tooltip, action));
+    }
+
+    public void button(@NotNull String label, @NotNull String tooltip, @NotNull Runnable action) {
+        button(miniMessage(label), miniMessage(tooltip), action);
     }
 
     private String actionButtonKey() {
@@ -396,18 +415,34 @@ public class DialogUI<T extends Audience> {
     }
 
     public void actionButton(@NotNull Component label) {
-        actionButtons.add(new Button(actionButtonKey(), label, null));
+        actionButtons.add(new Button(actionButtonKey(), label, null, null));
     }
 
     public void actionButton(@NotNull String label) {
         actionButton(miniMessage(label));
     }
 
+    public void actionButton(@NotNull Component label, @NotNull Component tooltip) {
+        actionButtons.add(new Button(actionButtonKey(), label, tooltip, null));
+    }
+
+    public void actionButton(@NotNull String label, @NotNull String tooltip) {
+        actionButton(miniMessage(label), miniMessage(tooltip));
+    }
+
     public void actionButton(@NotNull Component label, @NotNull Runnable action) {
-        actionButtons.add(new Button(actionButtonKey(), label, action));
+        actionButtons.add(new Button(actionButtonKey(), label, null, action));
     }
 
     public void actionButton(@NotNull String label, @NotNull Runnable action) {
         actionButton(miniMessage(label), action);
+    }
+
+    public void actionButton(@NotNull Component label, @NotNull Component tooltip, @NotNull Runnable action) {
+        actionButtons.add(new Button(actionButtonKey(), label, tooltip, action));
+    }
+
+    public void actionButton(@NotNull String label, @NotNull String tooltip, @NotNull Runnable action) {
+        actionButton(miniMessage(label), miniMessage(tooltip), action);
     }
 }
