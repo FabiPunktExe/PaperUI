@@ -12,7 +12,7 @@ public class OrderDrugsCommand {
         return Commands.literal("order-drugs")
                 .requires(stack -> stack.getSender().hasPermission("paperui.order-drugs"))
                 .executes(context -> {
-                    new OrderDrugsUI(context.getSource().getSender()).open();
+                    OrderDrugsUI.create(context.getSource().getSender()).open();
                     return Command.SINGLE_SUCCESS;
                 })
                 .build();
