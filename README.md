@@ -88,7 +88,8 @@ public class OrderDrugsUI {
 
         ui.actionButton("Order", () -> {
             String drug = type.get() + " with dosis " + dosis.get() + "%";
-            audience.sendMessage(Component.text("We will deliver " + amount.get() + " " + drug + " to " + address.get()));
+            String message = "We will deliver " + amount.get() + " " + drug + " to " + address.get();
+            audience.sendMessage(Component.text(message));
         });
         ui.actionButton("Cancel");
 
