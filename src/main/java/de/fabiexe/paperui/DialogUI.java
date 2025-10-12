@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DialogUI<T extends Audience> {
     protected final T audience;
+    private boolean opened = false;
     private Component title = Component.empty();
     private final List<DialogBody> body = new ArrayList<>();
     private final List<Property<?>> properties = new ArrayList<>();
@@ -53,6 +54,7 @@ public class DialogUI<T extends Audience> {
             type = DialogType.multiAction(buttons.stream().map(this::createButton).toList()).build();
         }
 
+        opened = true;
         audience.showDialog(Dialog.create(builder -> builder.empty()
                 .base(DialogBase.builder(title)
                         .inputs(inputs)
@@ -68,6 +70,10 @@ public class DialogUI<T extends Audience> {
         }
         if (button.action() != null) {
             builder.action(DialogAction.customClick((response, ignored) -> {
+                if (!opened) {
+                    return;
+                }
+                opened = false;
                 for (Property<?> property : properties) {
                     property.read(response);
                 }
