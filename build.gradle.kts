@@ -5,7 +5,7 @@ plugins {
     id("maven-publish")
     id("com.modrinth.minotaur") version "2.8.10"
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
-    id("xyz.jpenilla.run-paper") version "3.0.1"
+    id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 group = "de.fabiexe"
