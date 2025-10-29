@@ -3,8 +3,9 @@ A Java/Kotlin library for creating user interfaces on Paper servers
 
 
 ## How to use
-You need to add PaperUI as a plugin to your Paper server.
-To develop plugins, add PaperUI to your dependencies in `plugin.yml` or `paper-plugin.yml` and add Maven dependency to your buildscript.
+Either: Add PaperUI as a plugin to your Paper server and add PaperUI to your dependencies in `plugin.yml` or `paper-plugin.yml`\
+Or: Include PaperUI as in your plugin
+
 ### Maven
 ```xml
 <repositories>
@@ -23,6 +24,7 @@ To develop plugins, add PaperUI to your dependencies in `plugin.yml` or `paper-p
     </dependency>
 </dependencies>
 ```
+
 ### Gradle
 ```kotlin
 repositories {

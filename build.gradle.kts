@@ -3,13 +3,10 @@ plugins {
     kotlin("jvm") version "2.2.20"
     id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
     id("maven-publish")
-    id("com.modrinth.minotaur") version "2.8.10"
-    id("io.papermc.hangar-publish-plugin") version "0.1.3"
-    id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 group = "de.fabiexe"
-version = "1.0.6"
+version = "1.0.7"
 
 repositories {
     mavenCentral()
@@ -32,8 +29,6 @@ tasks {
     }
 
     jar {
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         archiveFileName = "PaperUI-${version}-unobf.jar"
     }
 
@@ -43,11 +38,6 @@ tasks {
 
     assemble {
         dependsOn(reobfJar)
-    }
-
-    runServer {
-        minecraftVersion("1.21.8")
-        systemProperty("PAPERUI_ENABLE_DEV_COMMANDS", "true")
     }
 }
 
@@ -69,32 +59,7 @@ publishing {
     }
 }
 
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "JdoLDo8L"
-    versionName = version as String
-    versionNumber = version as String
-    versionType = if (version.toString().contains("alpha")) "alpha"
-    else if (version.toString().contains("beta")) "beta"
-    else "release"
-    uploadFile = tasks.reobfJar.get().outputJar.get()
-    gameVersions = listOf("1.21.8")
-    loaders = listOf("paper", "purpur")
-}
-
-hangarPublish {
-    publications.register("plugin") {
-        version = project.version as String
-        id = "PaperUI"
-        channel = "Release"
-
-        apiKey = System.getenv("HANGAR_TOKEN")
-
-        platforms {
-            paper {
-                jar = tasks.reobfJar.get().outputJar
-                platformVersions = listOf("1.21.8")
-            }
-        }
-    }
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
 }
