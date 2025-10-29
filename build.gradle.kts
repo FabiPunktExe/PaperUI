@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    kotlin("jvm") version "2.2.20"
+    kotlin("jvm") version "2.2.21"
     id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
     id("maven-publish")
 }
