@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import net.kyori.adventure.audience.Audience;
@@ -26,10 +27,10 @@ public class DialogUI<T extends Audience> {
     protected final T audience;
     private boolean opened = false;
     private Component title = Component.empty();
-    private final List<DialogBody> body = new ArrayList<>();
-    private final List<Property<?>> properties = new ArrayList<>();
-    private final List<Button> buttons = new ArrayList<>();
-    private final List<Button> actionButtons = new ArrayList<>();
+    private final List<DialogBody> body = new CopyOnWriteArrayList<>();
+    private final List<DialogProperty<?>> properties = new CopyOnWriteArrayList<>();
+    private final List<Button> buttons = new CopyOnWriteArrayList<>();
+    private final List<Button> actionButtons = new CopyOnWriteArrayList<>();
 
     public DialogUI(@NotNull T audience) {
         this.audience = audience;
@@ -37,7 +38,7 @@ public class DialogUI<T extends Audience> {
 
     public void open() {
         List<DialogInput> inputs = new ArrayList<>();
-        for (Property<?> property : properties) {
+        for (DialogProperty<?> property : properties) {
             property.populate(inputs);
         }
 
@@ -74,7 +75,7 @@ public class DialogUI<T extends Audience> {
                     return;
                 }
                 opened = false;
-                for (Property<?> property : properties) {
+                for (DialogProperty<?> property : properties) {
                     property.read(response);
                 }
                 button.action().run();
@@ -176,7 +177,7 @@ public class DialogUI<T extends Audience> {
         item(itemStack, miniMessage(description), maxDescriptionWidth);
     }
 
-    public <P> Property<P> property(@NotNull Property<P> property) {
+    public <P> DialogProperty<P> property(@NotNull DialogProperty<P> property) {
         properties.add(property);
         return property;
     }

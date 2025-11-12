@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BooleanProperty implements Property<Boolean> {
+public class BooleanProperty implements DialogProperty<Boolean> {
     private final String key;
     private final Component label;
     private Boolean value;

@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class IntegerProperty implements Property<Integer> {
+public class IntegerProperty implements DialogProperty<Integer> {
     private final String key;
     private final Component label;
     private final int min;

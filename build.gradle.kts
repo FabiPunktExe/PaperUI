@@ -6,14 +6,16 @@ plugins {
 }
 
 group = "de.fabiexe"
-version = "1.0.7"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
+    maven("https://repo.codemc.io/repository/maven-releases")
 }
 
 dependencies {
     paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    compileOnly("com.github.retrooper:packetevents-spigot:2.10.1")
 }
 
 tasks {

@@ -9,11 +9,13 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://repo.codemc.io/repository/maven-releases")
 }
 
 dependencies {
     paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
-    implementation(project(":"))
+    compileOnly("com.github.retrooper:packetevents-spigot:2.10.1")
+    implementation(projects.paperUI)
 }
 
 tasks {

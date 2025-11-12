@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FloatProperty implements Property<Float> {
+public class FloatProperty implements DialogProperty<Float> {
     private final String key;
     private final Component label;
     private final float min;
@@ -43,7 +43,7 @@ public class FloatProperty implements Property<Float> {
         if (value == null) {
             builder.initial(min);
         } else {
-            builder.initial(value.floatValue());
+            builder.initial(value);
         }
         inputs.add(builder.build());
     }

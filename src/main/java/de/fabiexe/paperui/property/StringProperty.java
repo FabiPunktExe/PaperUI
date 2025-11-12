@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StringProperty implements Property<String> {
+public class StringProperty implements DialogProperty<String> {
     private final String key;
     private final Component label;
     private final int maxLines;

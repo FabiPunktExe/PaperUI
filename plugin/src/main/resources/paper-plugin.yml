@@ -1,5 +1,6 @@
 name: PaperUI
 main: de.fabiexe.paperui.PaperUIPlugin
+loader: de.fabiexe.paperui.PaperUIPluginLoader
 version: "${version}"
 api-version: "1.21"
 website: https://github.com/FabiPunktExe/PaperUI

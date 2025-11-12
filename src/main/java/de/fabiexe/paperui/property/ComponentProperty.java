@@ -9,7 +9,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ComponentProperty implements Property<Component> {
+public class ComponentProperty implements DialogProperty<Component> {
     private final String key;
     private final Component label;
     private final int maxLines;

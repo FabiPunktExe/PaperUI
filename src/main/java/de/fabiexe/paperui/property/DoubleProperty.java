@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DoubleProperty implements Property<Double> {
+public class DoubleProperty implements DialogProperty<Double> {
     private final String key;
     private final Component label;
     private final double min;

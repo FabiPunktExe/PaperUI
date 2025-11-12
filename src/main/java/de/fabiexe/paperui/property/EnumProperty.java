@@ -11,7 +11,7 @@ import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EnumProperty<T> implements Property<T> {
+public class EnumProperty<T> implements DialogProperty<T> {
     private final String key;
     private final Component label;
     private final List<T> values;
