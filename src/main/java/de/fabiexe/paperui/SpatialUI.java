@@ -70,11 +70,15 @@ public class SpatialUI {
         if (!shown) {
             return;
         }
+
+        // Remove text displays
         for (Display.TextDisplay textDisplay : textDisplays) {
             packetEventsAPI.getPlayerManager().sendPacket(audience, new WrapperPlayServerDestroyEntities(
                     textDisplay.getId()));
         }
         textDisplays.clear();
+
+        // Remove interactions
         for (Interaction interaction : interactions) {
             packetEventsAPI.getPlayerManager().sendPacket(audience, new WrapperPlayServerDestroyEntities(
                     interaction.getId()));
@@ -275,7 +279,13 @@ public class SpatialUI {
     }
 
     public @NotNull SpatialButton button(double x, double y, double width, double height, @NotNull Runnable onClick) {
-        return button(x, y, width, height, onClick);
+        SpatialButton spatialButton = new SpatialButton(
+                new Vector(x, y, 0),
+                width,
+                height,
+                onClick);
+        buttons.add(spatialButton);
+        return spatialButton;
     }
 
     private class InteractionListener implements PacketListener {

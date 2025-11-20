@@ -29,8 +29,8 @@ public class DialogUI<T extends Audience> {
     private Component title = Component.empty();
     private final List<DialogBody> body = new CopyOnWriteArrayList<>();
     private final List<DialogProperty<?>> properties = new CopyOnWriteArrayList<>();
-    private final List<Button> buttons = new CopyOnWriteArrayList<>();
-    private final List<Button> actionButtons = new CopyOnWriteArrayList<>();
+    private final List<DialogButton> buttons = new CopyOnWriteArrayList<>();
+    private final List<DialogButton> actionButtons = new CopyOnWriteArrayList<>();
 
     public DialogUI(@NotNull T audience) {
         this.audience = audience;
@@ -64,7 +64,7 @@ public class DialogUI<T extends Audience> {
                 .type(type)));
     }
 
-    private ActionButton createButton(Button button) {
+    private ActionButton createButton(DialogButton button) {
         ActionButton.Builder builder = ActionButton.builder(button.label());
         if (button.tooltip() != null) {
             builder.tooltip(button.tooltip());
@@ -383,7 +383,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void button(@NotNull Component label) {
-        buttons.add(new Button(buttonKey(), label, null, null));
+        buttons.add(new DialogButton(buttonKey(), label, null, null));
     }
 
     public void button(@NotNull String label) {
@@ -391,7 +391,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void button(@NotNull Component label, @NotNull Component tooltip) {
-        buttons.add(new Button(buttonKey(), label, tooltip, null));
+        buttons.add(new DialogButton(buttonKey(), label, tooltip, null));
     }
 
     public void button(@NotNull String label, @NotNull String tooltip) {
@@ -399,7 +399,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void button(@NotNull Component label, @NotNull Runnable action) {
-        buttons.add(new Button(buttonKey(), label, null, action));
+        buttons.add(new DialogButton(buttonKey(), label, null, action));
     }
 
     public void button(@NotNull String label, @NotNull Runnable action) {
@@ -407,7 +407,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void button(@NotNull Component label, @NotNull Component tooltip, @NotNull Runnable action) {
-        buttons.add(new Button(buttonKey(), label, tooltip, action));
+        buttons.add(new DialogButton(buttonKey(), label, tooltip, action));
     }
 
     public void button(@NotNull String label, @NotNull String tooltip, @NotNull Runnable action) {
@@ -422,7 +422,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void actionButton(@NotNull Component label) {
-        actionButtons.add(new Button(actionButtonKey(), label, null, null));
+        actionButtons.add(new DialogButton(actionButtonKey(), label, null, null));
     }
 
     public void actionButton(@NotNull String label) {
@@ -430,7 +430,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void actionButton(@NotNull Component label, @NotNull Component tooltip) {
-        actionButtons.add(new Button(actionButtonKey(), label, tooltip, null));
+        actionButtons.add(new DialogButton(actionButtonKey(), label, tooltip, null));
     }
 
     public void actionButton(@NotNull String label, @NotNull String tooltip) {
@@ -438,7 +438,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void actionButton(@NotNull Component label, @NotNull Runnable action) {
-        actionButtons.add(new Button(actionButtonKey(), label, null, action));
+        actionButtons.add(new DialogButton(actionButtonKey(), label, null, action));
     }
 
     public void actionButton(@NotNull String label, @NotNull Runnable action) {
@@ -446,7 +446,7 @@ public class DialogUI<T extends Audience> {
     }
 
     public void actionButton(@NotNull Component label, @NotNull Component tooltip, @NotNull Runnable action) {
-        actionButtons.add(new Button(actionButtonKey(), label, tooltip, action));
+        actionButtons.add(new DialogButton(actionButtonKey(), label, tooltip, action));
     }
 
     public void actionButton(@NotNull String label, @NotNull String tooltip, @NotNull Runnable action) {
