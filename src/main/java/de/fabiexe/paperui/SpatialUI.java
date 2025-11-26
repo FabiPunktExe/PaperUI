@@ -126,7 +126,7 @@ public class SpatialUI {
                 if (text.backgroundColor == null) {
                     textDisplay.setBackgroundColor(null);
                 } else {
-                    textDisplay.setBackgroundColor(Color.fromRGB(text.backgroundColor));
+                    textDisplay.setBackgroundColor(Color.fromARGB(text.backgroundColor));
                 }
                 changed = true;
             }
