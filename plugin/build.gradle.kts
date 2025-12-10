@@ -4,7 +4,7 @@ plugins {
     id("io.papermc.paperweight.userdev")
     id("xyz.jpenilla.run-paper") version "3.0.2"
     id("com.modrinth.minotaur") version "2.8.10"
-    id("io.papermc.hangar-publish-plugin") version "0.1.3"
+    id("io.papermc.hangar-publish-plugin") version "0.1.4"
 }
 
 repositories {
