@@ -1,6 +1,6 @@
 package de.fabiexe.paperui.test
 
-import de.fabiexe.paperui.PaperUIPlugin
+import com.github.retrooper.packetevents.PacketEvents
 import de.fabiexe.paperui.SpatialUI
 import org.bukkit.entity.Player
 import org.bukkit.entity.TextDisplay
@@ -17,7 +17,7 @@ val phones = listOf(
 
 fun create(audience: Player) = SpatialUI(
     audience,
-    PaperUIPlugin.getInstance().packetEventsAPI,
+    PacketEvents.getAPI(),
     audience.location,
     audience.facing.oppositeFace
 ).apply {

@@ -8,6 +8,4 @@ authors:
 dependencies:
   server:
     packetevents:
-      required: false
       load: BEFORE
-      join-classpath: true

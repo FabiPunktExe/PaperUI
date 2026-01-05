@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
     compileOnly("com.github.retrooper:packetevents-spigot:2.11.1")
     implementation(projects.paperUI)
 }
@@ -33,19 +33,11 @@ tasks {
     jar {
         from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        archiveFileName = "PaperUI-${version}-unobf.jar"
-    }
-
-    reobfJar {
-        outputJar = file("build/libs/PaperUI-${version}.jar")
-    }
-
-    assemble {
-        dependsOn(reobfJar)
+        archiveFileName = "PaperUI-${version}.jar"
     }
 
     runServer {
-        minecraftVersion("1.21.8")
+        minecraftVersion("1.21.11")
         systemProperty("PAPERUI_ENABLE_DEV_COMMANDS", "true")
     }
 }
@@ -74,7 +66,7 @@ hangarPublish {
         platforms {
             paper {
                 jar = tasks.reobfJar.get().outputJar
-                platformVersions = listOf("1.21.8")
+                platformVersions = listOf("1.21.11")
             }
         }
     }

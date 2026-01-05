@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "de.fabiexe"
-version = "1.1.2"
+version = "1.1.3"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
     compileOnly("com.github.retrooper:packetevents-spigot:2.11.1")
 }
 
@@ -31,15 +31,7 @@ tasks {
     }
 
     jar {
-        archiveFileName = "PaperUI-${version}-unobf.jar"
-    }
-
-    reobfJar {
-        outputJar = file("build/libs/PaperUI-${version}.jar")
-    }
-
-    assemble {
-        dependsOn(reobfJar)
+        archiveFileName = "PaperUI-${version}.jar"
     }
 }
 
