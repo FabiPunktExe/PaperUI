@@ -2,7 +2,7 @@
 kotlin = "2.4.0"
 paperweight-userdev = "2.0.0-SNAPSHOT"
 runTask = "3.0.2"
-minotaur = "2.8.10"
+minotaur = "2.9.0"
 hangarPublish = "0.1.4"
 paper = "26.2.build.34-alpha"
 packetevents = "2.13.0"
