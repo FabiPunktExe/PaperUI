@@ -4,7 +4,6 @@ import com.github.retrooper.packetevents.PacketEventsAPI;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
-import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
@@ -16,14 +15,11 @@ import de.fabiexe.paperui.property.MutableProperty;
 import de.fabiexe.paperui.property.SpatialUIProperty;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Display;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Interaction;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -34,6 +30,10 @@ import org.bukkit.entity.TextDisplay;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SpatialUI {
     protected final Player audience;
@@ -195,12 +195,12 @@ public class SpatialUI {
             return textDisplays.get(i);
         } else {
             ServerLevel level = ((CraftWorld) location.getWorld()).getHandle();
-            Display.TextDisplay textDisplay = new Display.TextDisplay(EntityType.TEXT_DISPLAY, level);
+            Display.TextDisplay textDisplay = new Display.TextDisplay(EntityTypes.TEXT_DISPLAY, level);
             textDisplays.add(textDisplay);
             packetEventsAPI.getPlayerManager().sendPacket(audience, new WrapperPlayServerSpawnEntity(
                     textDisplay.getId(),
                     textDisplay.getUUID(),
-                    EntityTypes.TEXT_DISPLAY,
+                    com.github.retrooper.packetevents.protocol.entity.type.EntityTypes.TEXT_DISPLAY,
                     SpigotConversionUtil.fromBukkitLocation(location),
                     0,
                     0,
@@ -221,12 +221,12 @@ public class SpatialUI {
             return interactions.get(i);
         } else {
             ServerLevel level = ((CraftWorld) location.getWorld()).getHandle();
-            Interaction interaction = new Interaction(EntityType.INTERACTION, level);
+            Interaction interaction = new Interaction(EntityTypes.INTERACTION, level);
             interactions.add(interaction);
             packetEventsAPI.getPlayerManager().sendPacket(audience, new WrapperPlayServerSpawnEntity(
                     interaction.getId(),
                     interaction.getUUID(),
-                    EntityTypes.INTERACTION,
+                    com.github.retrooper.packetevents.protocol.entity.type.EntityTypes.INTERACTION,
                     SpigotConversionUtil.fromBukkitLocation(location),
                     0,
                     0,
@@ -243,15 +243,15 @@ public class SpatialUI {
         this.content = content;
     }
 
-    public <T> MutableProperty<T> property(T value) {
+    public <T> @NotNull MutableProperty<T> property(T value) {
         return new SpatialUIProperty<>(this, value);
     }
 
-    public <T> MutableProperty<T> property() {
+    public <T> @NotNull MutableProperty<T> property() {
         return property(null);
     }
 
-    private Component miniMessage(String text) {
+    private @NotNull Component miniMessage(String text) {
         return MiniMessage.miniMessage().deserialize(text);
     }
 

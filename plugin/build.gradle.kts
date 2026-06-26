@@ -1,10 +1,10 @@
 plugins {
-    id("java")
-    kotlin("jvm")
-    id("io.papermc.paperweight.userdev")
-    id("xyz.jpenilla.run-paper") version "3.0.2"
-    id("com.modrinth.minotaur") version "2.8.10"
-    id("io.papermc.hangar-publish-plugin") version "0.1.4"
+    java
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.paperweight.userdev)
+    alias(libs.plugins.runPaper)
+    alias(libs.plugins.minotaur)
+    alias(libs.plugins.hangarPublish)
 }
 
 repositories {
@@ -13,20 +13,20 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
-    compileOnly("com.github.retrooper:packetevents-spigot:2.13.0")
+    paperweight.paperDevBundle(libs.versions.paper.get())
+    compileOnly(libs.packetevents.spigot)
     implementation(projects.paperUI)
 }
 
 tasks {
     compileJava {
         options.encoding = "UTF-8"
-        options.release = 21
+        options.release = 25
     }
 
     processResources {
         filesMatching("paper-plugin.yml") {
-            expand(mapOf("version" to version))
+            expand("version" to version)
         }
     }
 
@@ -37,7 +37,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.21.11")
+        minecraftVersion("26.2")
         systemProperty("PAPERUI_ENABLE_DEV_COMMANDS", "true")
     }
 }
@@ -51,7 +51,7 @@ modrinth {
     else if (version.toString().contains("beta")) "beta"
     else "release"
     uploadFile = tasks.reobfJar.get().outputJar.get()
-    gameVersions = listOf("1.21.8")
+    gameVersions = listOf("26.2")
     loaders = listOf("paper", "purpur")
 }
 
@@ -66,7 +66,7 @@ hangarPublish {
         platforms {
             paper {
                 jar = tasks.reobfJar.get().outputJar
-                platformVersions = listOf("1.21.11")
+                platformVersions = listOf("26.2")
             }
         }
     }

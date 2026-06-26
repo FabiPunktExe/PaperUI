@@ -1,0 +1,18 @@
+[versions]
+kotlin = "2.4.0"
+paperweight-userdev = "2.0.0-SNAPSHOT"
+runTask = "3.0.2"
+minotaur = "2.8.10"
+hangarPublish = "0.1.4"
+paper = "26.2.build.34-alpha"
+packetevents = "2.13.0"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+paperweight-userdev = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight-userdev" }
+runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "runTask" }
+minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
+hangarPublish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangarPublish" }
+
+[libraries]
+packetevents-spigot = { module = "com.github.retrooper:packetevents-spigot", version.ref = "packetevents" }

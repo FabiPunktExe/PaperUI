@@ -1,12 +1,12 @@
 plugins {
-    id("java")
-    kotlin("jvm") version "2.4.0"
-    id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
-    id("maven-publish")
+    java
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.paperweight.userdev)
+    `maven-publish`
 }
 
 group = "de.fabiexe"
-version = "1.1.3"
+version = "1.1.4"
 
 repositories {
     mavenCentral()
@@ -14,19 +14,19 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
-    compileOnly("com.github.retrooper:packetevents-spigot:2.13.0")
+    paperweight.paperDevBundle(libs.versions.paper.get())
+    compileOnly(libs.packetevents.spigot)
 }
 
 tasks {
     compileJava {
         options.encoding = "UTF-8"
-        options.release = 21
+        options.release = 25
     }
 
     processResources {
         filesMatching("paper-plugin.yml") {
-            expand(mapOf("version" to version))
+            expand("version" to version)
         }
     }
 
