@@ -1,20 +1,24 @@
 plugins {
     java
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.paperweight.userdev)
     `maven-publish`
 }
 
 group = "de.fabiexe"
-version = "1.1.4"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
+    google()
     maven("https://repo.codemc.io/repository/maven-releases")
 }
 
 dependencies {
     paperweight.paperDevBundle(libs.versions.paper.get())
+    api(libs.compose.runtime)
+    api(libs.kotlinx.coroutines.core)
     compileOnly(libs.packetevents.spigot)
 }
 

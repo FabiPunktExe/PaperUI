@@ -1,7 +1,14 @@
 package de.fabiexe.paperui.test
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.github.retrooper.packetevents.PacketEvents
-import de.fabiexe.paperui.SpatialUI
+import de.fabiexe.paperui.spatial.Button
+import de.fabiexe.paperui.spatial.SpatialUI
+import de.fabiexe.paperui.spatial.Text
+import de.fabiexe.paperui.spatial.launchSpatialUI
 import org.bukkit.entity.Player
 import org.bukkit.entity.TextDisplay
 
@@ -15,39 +22,34 @@ val phones = listOf(
     Phone(PhoneType.GOGGLE_PIG_SELL, 1, 499.99)
 )
 
-fun create(audience: Player) = SpatialUI(
-    audience,
-    PacketEvents.getAPI(),
-    audience.location,
-    audience.facing.oppositeFace
-).apply {
-    var selectedPhone by property<Phone?>(null)
+fun create(player: Player) = launchSpatialUI {
+    SpatialUI(player, PacketEvents.getAPI(), player.location.toVector(), player.facing.oppositeFace) {
+        var selectedPhone by remember { mutableStateOf<Phone?>(null) }
 
-    content {
-        text(0.0, 2.0, "<underlined>Order a Phone")
+        Text(0.0, 2.0, "<underlined>Order a Phone")
 
         if (selectedPhone == null) {
-            val names = phones.joinToString("\n") { "${it.type.name} v${it.version}" }
+            val names = phones.joinToString("\n") { "${it.type.prettyName()} v${it.version}" }
             val prices = phones.joinToString("\n") { "$${it.price}" }
-            text(0.0, 0.0, names).textAlignment = TextDisplay.TextAlignment.LEFT
-            text(2.0, 0.0, prices).textAlignment = TextDisplay.TextAlignment.RIGHT
+            Text(0.0, 0.0, names, TextDisplay.TextAlignment.LEFT)
+            Text(2.0, 0.0, prices, TextDisplay.TextAlignment.RIGHT)
 
             var yOffset = 1.5
             for (phone in phones) {
-                button(0.0, yOffset, 2.5, 0.25) {
+                Button(0.0, yOffset, 2.5f, 0.25f) {
                     selectedPhone = phone
                 }
                 yOffset -= 0.25
             }
         } else {
-            text(0.0, 1.25, "You have selected:\n${selectedPhone!!.type.name} v${selectedPhone!!.version} for $${selectedPhone!!.price}")
-            text(-1.0, 0.75, "<red>Cancel Order").textAlignment = TextDisplay.TextAlignment.CENTER
-            text(1.0, 0.75, "<green>Confirm Order").textAlignment = TextDisplay.TextAlignment.CENTER
-            button(-1.0, 0.75, 1.5, 0.25) {
+            Text(0.0, 1.25, "You have selected:\n${selectedPhone!!.type.prettyName()} v${selectedPhone!!.version} for $${selectedPhone!!.price}")
+            Text(-1.0, 0.75, "<red>Cancel Order", TextDisplay.TextAlignment.CENTER)
+            Text(1.0, 0.75, "<green>Confirm Order", TextDisplay.TextAlignment.CENTER)
+            Button(-1.0, 0.75, 1.5f, 0.25f) {
                 selectedPhone = null
             }
-            button(1.0, 0.75, 1.5, 0.25) {
-                audience.sendMessage("You have ordered a ${selectedPhone!!.type.name} v${selectedPhone!!.version} for $${selectedPhone!!.price}!")
+            Button(1.0, 0.75, 1.5f, 0.25f) {
+                player.sendMessage("You have ordered a ${selectedPhone!!.type.prettyName()} v${selectedPhone!!.version} for $${selectedPhone!!.price}!")
                 selectedPhone = null
             }
         }
@@ -55,7 +57,13 @@ fun create(audience: Player) = SpatialUI(
 }
 
 enum class PhoneType {
-    SUMSUM_GALAX_E, EYE_PHONE, GOGGLE_PIG_SELL
+    SUMSUM_GALAX_E, EYE_PHONE, GOGGLE_PIG_SELL;
+
+    fun prettyName(): String {
+        return name.split("_").joinToString(" ") {
+            it.lowercase().replaceFirstChar(Char::uppercase)
+        }
+    }
 }
 
 data class Phone(val type: PhoneType, val version: Int, val price: Double)

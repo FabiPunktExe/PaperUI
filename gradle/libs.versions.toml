@@ -1,18 +1,23 @@
 [versions]
 kotlin = "2.4.0"
+kotlinx-coroutines = "1.11.0"
 paperweight-userdev = "2.0.0-SNAPSHOT"
 runTask = "3.0.2"
 minotaur = "2.9.0"
 hangarPublish = "0.1.4"
 paper = "26.2.build.34-alpha"
+compose = "1.11.3"
 packetevents = "2.13.0"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 paperweight-userdev = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight-userdev" }
 runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "runTask" }
 minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
 hangarPublish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangarPublish" }
 
 [libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 packetevents-spigot = { module = "com.github.retrooper:packetevents-spigot", version.ref = "packetevents" }

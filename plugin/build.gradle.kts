@@ -1,6 +1,7 @@
 plugins {
     java
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.paperweight.userdev)
     alias(libs.plugins.runPaper)
     alias(libs.plugins.minotaur)
@@ -9,6 +10,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    google()
     maven("https://repo.codemc.io/repository/maven-releases")
 }
 
